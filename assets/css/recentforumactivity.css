@@ -1,0 +1,188 @@
+/* @override http://test.dev/bootstrap/recentforumactivity.css */
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot?-h3ngmt');
+	src:url('../fonts/icomoon.eot?#iefix-h3ngmt') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?-h3ngmt') format('woff'),
+		url('../fonts/icomoon.ttf?-h3ngmt') format('truetype'),
+		url('../fonts/icomoon.svg?-h3ngmt#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	margin-top: 2.5em;
+	margin-bottom: 3em;
+}
+
+h1, .tagline, footer {
+	font-family: "arial rounded mt bold","lucida grande",arial,sans-serif;
+}
+
+h1 {
+	color: #393;
+}
+
+h1, .tagline {
+	text-align: right;
+}
+
+footer p, p.tagline {
+	color: #999999;
+}
+
+[data-download]:before {
+ 	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	content: attr(data-download);
+	font-size: 1.2em;	
+	vertical-align: middle;
+}
+
+.topic {
+	display: block;
+	margin-bottom: .3em;
+}
+
+ul.unstyled li {
+	padding-bottom: .4em;
+}
+
+footer a {
+	color: #666666;
+}
+
+.well {
+	margin: 2.2em 0;
+	text-align: center;
+}
+
+label {
+	/* 17 / 14 */
+	font-size: 1.214285714em;
+	/* 10 / 14 */
+	margin-right: .714285714em;
+}
+
+.alert {
+	margin-top: 1em;
+}
+
+#useractivity {
+	margin-bottom: 1em;
+}
+
+#useractivity a, #useractivity span {
+	font-weight: normal;
+	/* 15px / 18px */
+	font-size: .833333333em;
+}
+
+#useractivity span {
+	margin: 0 .5em;
+}
+
+.hide {
+	display: none;
+}
+
+/* Landscape phones and down */
+
+@media (max-width: 480px) {
+
+.well {
+	text-align: left;
+}
+
+input.btn {
+	display: block;
+	margin-top: 4px;
+}
+
+h1, .tagline {
+	text-align: left;
+}
+
+}
+
+/* Landscape phone to portrait tablet */
+
+@media (max-width: 767px) {
+
+label span {
+	margin-bottom: .5em;
+	display: inline-block;
+}
+.well {
+	text-align: left;
+}
+
+input.btn {
+	display: block;
+	margin-top: .5em;
+}
+
+h1, .tagline {
+	text-align: left;
+}
+
+div.span3 ul li {
+	/* 5 / 14 */
+	margin: .357142857em 0;
+}
+
+#content {
+	/* 15 / 14 */
+	font-size: 1.071428571em;
+}
+
+.topic {
+	/* 16 / 14 */
+	font-size: 1.142857143em;
+	line-height: 1.1;
+}
+
+}
+
+/* Portrait tablet to landscape and desktop */
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+.well {
+	text-align: left;
+}
+
+input.btn {
+	display: block;
+	margin-top: .5em;
+}
+
+li {
+	/* 4 / 14 */
+	padding-bottom: .285714286em;
+}
+
+.topic {
+	font-size: 1.071428571em;
+}
+
+}
+
+/* Large desktop */
+
+@media (min-width: 1200px) {
+
+.container-fluid {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+}

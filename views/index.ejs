@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Recent Forum Activity</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+
+		<meta name="robots" content="NOINDEX,NOFOLLOW">	
+
+		<!-- Le styles -->
+		<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+		<link href="/css/recentforumactivity.min.css" rel="stylesheet">	
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+			<!--[if lt IE 9]>
+				<script src="assets/js/html5shiv.js"></script>
+				<![endif]-->	
+
+				<!-- Le fav and touch icons -->
+				<link rel="shortcut icon" href="ico/favicon.ico">
+				<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+				<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+				<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+				<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">	
+
+	</head>
+	<body>
+		<div class="container-fluid">
+			<h1>Recent Forum Activity</h1>
+			<p class="tagline">display the topics of your WordPress [dot] org profile pages in order of activity</p>
+
+			<% include form.ejs %>
+
+			<!-- row of columns -->
+			<div class="row">
+				<div class="col-md-8"><!-- first column -->
+
+					<% include errors.ejs %>
+					
+					<% if (!error || items.length ) { %>
+						<% include topics.ejs %>
+					<% } %>
+
+				</div><!-- /.span8 -->
+				<div class="col-md-4"><!-- first column -->
+					<% include sidebar.ejs %>
+				</div>
+			</div><!-- /.row-fluid -->
+
+			<hr>
+
+			<footer>
+				<p>Recent Forum Activity by keesiemeijer using <a href="http://nodejs.org/">Node.js</a> and <a href="http://getbootstrap.com/">Bootstrap</a></p>
+			</footer>
+
+		</div><!-- /.container-fluid -->
+			<!--
+			<script src="/bower_components/jquery/dist/jquery.js"></script> 
+			<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+			<script type="text/javascript" src="/js/resolved.min.js"></script>
+			-->
+	</body>
+</html>

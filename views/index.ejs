@@ -9,7 +9,7 @@
 
 		<!-- Le styles -->
 		<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
-		<link href="/css/recentforumactivity.min.css" rel="stylesheet">	
+		<link href="/css/recentforumactivity.css" rel="stylesheet">	
 
 		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 			<!--[if lt IE 9]>
@@ -37,7 +37,7 @@
 
 					<% include errors.ejs %>
 					
-					<% if (!error || items.length ) { %>
+					<% if (!error && items.length ) { %>
 						<% include topics.ejs %>
 					<% } %>
 
@@ -57,7 +57,7 @@
 			<!--
 			<script src="/bower_components/jquery/dist/jquery.js"></script> 
 			<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-			<script type="text/javascript" src="/js/resolved.min.js"></script>
 			-->
+			<script type="text/javascript" src="/js/resolved.js"></script>
 	</body>
 </html>

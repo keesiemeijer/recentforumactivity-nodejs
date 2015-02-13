@@ -11,10 +11,17 @@
 	font-style: normal;
 }
 
+html{
+	font-size: 100%;
+	line-height: 1.5;
+}
+
 body {
 	margin-top: 2.5em;
 	margin-bottom: 3em;
+	font-size: .9375em; /* 15px */
 }
+
 
 h1, .tagline, footer {
 	font-family: "arial rounded mt bold","lucida grande",arial,sans-serif;
@@ -30,6 +37,11 @@ h1, .tagline {
 
 footer p, p.tagline {
 	color: #999999;
+}
+
+.toggle{
+	display: inline-block;
+	margin-bottom: 1.25em;
 }
 
 [data-download]:before {
@@ -52,8 +64,20 @@ footer p, p.tagline {
 	margin-bottom: .3em;
 }
 
+/*
+* Hide only visually, but have it available for screen readers:
+* http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+*/
+.visuallyhidden {
+	visibility:hidden;
+}
+ul.unstyled {
+	margin: 0;
+	padding: 0;
+}
 ul.unstyled li {
 	padding-bottom: .4em;
+	list-style: outside none none;
 }
 
 footer a {
@@ -66,28 +90,11 @@ footer a {
 }
 
 label {
-	/* 17 / 14 */
-	font-size: 1.214285714em;
-	/* 10 / 14 */
-	margin-right: .714285714em;
-}
-
-.alert {
-	margin-top: 1em;
-}
-
-#useractivity {
-	margin-bottom: 1em;
-}
-
-#useractivity a, #useractivity span {
+	/* 17 / 16 */
+	font-size: 1.0625em;
+	/* 10 / 16 */
+	margin-right: .625em;
 	font-weight: normal;
-	/* 15px / 18px */
-	font-size: .833333333em;
-}
-
-#useractivity span {
-	margin: 0 .5em;
 }
 
 .hide {
@@ -116,6 +123,14 @@ h1, .tagline {
 /* Landscape phone to portrait tablet */
 
 @media (max-width: 767px) {
+body {
+	/* 17px */
+	font-size: 1em;
+	
+}
+.col-md-4{
+	line-height: 1.7;
+}
 
 label span {
 	margin-bottom: .5em;
@@ -139,23 +154,16 @@ div.span3 ul li {
 	margin: .357142857em 0;
 }
 
-#content {
-	/* 15 / 14 */
-	font-size: 1.071428571em;
-}
-
-.topic {
-	/* 16 / 14 */
-	font-size: 1.142857143em;
-	line-height: 1.1;
-}
-
 }
 
 /* Portrait tablet to landscape and desktop */
 
 @media (min-width: 768px) and (max-width: 979px) {
 
+body {
+	/* 16/16 */
+	font-size: 1em;
+}
 .well {
 	text-align: left;
 }
@@ -166,12 +174,8 @@ input.btn {
 }
 
 li {
-	/* 4 / 14 */
+	/* 4 / 16 */
 	padding-bottom: .285714286em;
-}
-
-.topic {
-	font-size: 1.071428571em;
 }
 
 }

@@ -1,4 +1,5 @@
 var config = require( './config' );
+var openApp = require( 'opener' );
 var path = require( 'path' );
 var bodyParser = require( 'body-parser' );
 var express = require( 'express' );
@@ -25,4 +26,8 @@ var port = process.env.PORT || config.port;
 
 app.listen( port, function() {
 	console.log( 'ready on port ' + port );
+
+	if ( config[ 'open' ].length ) {
+		openApp( config[ 'open' ] );
+	}
 } );

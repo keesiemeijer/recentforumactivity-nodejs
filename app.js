@@ -13,7 +13,7 @@ app.set( 'views', path.join( __dirname, 'views' ) );
 // use middleware
 
 app.use( bodyParser.urlencoded( {
-	extended: true
+	extended: false
 } ) );
 
 var router = require( './router' );

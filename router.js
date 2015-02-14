@@ -87,7 +87,7 @@ router.get( "/profile/:profile([0-9a-zA-Z\-_+.]+)", function( req, res ) {
 
 		request( args, function( error, response, html ) {
 
-			console.log( args[ 'url' ] + '/page/' + i );
+			console.log( args[ 'url' ] );
 
 			if ( error ) {
 				return callback( null, [] );

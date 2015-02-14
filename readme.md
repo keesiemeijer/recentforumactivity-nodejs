@@ -6,7 +6,7 @@ Display the topics of your WordPress dot org forum profile in order of activity.
 
 Install [Node.js](http://nodejs.org/).
 
-See config.js for the port number and other settings.
+See the config.js file for the port number and other settings.
 
 ```bash
 # clone the repository
@@ -22,4 +22,11 @@ npm install
 node app
 ```
 
-Visit `http://localhost:5000/` in your browser and submit your profile.
+Visit [http://localhost:5000/](http://localhost:5000/) in your browser and submit your profile.
+
+## Config ##
+
+In the config.js file you can set:
+* The port number.
+* How many profile pages to scrape.
+* To open the default browser when you start the app (`node app`).

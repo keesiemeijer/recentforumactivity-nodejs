@@ -64,8 +64,8 @@ exports.parse_html = function( html ) {
 		// Get content from freshness span.
 		text = $( this ).text();
 
-		// Split text at the first 'ago'.
-		var parts = text.split( 'ago' );
+		// Split text at the first ' ago'.
+		var parts = text.split( ' ago' );
 
 		// Get text part with the time variable 
 		// e.g. "Most recent reply: 11 hours ago"
@@ -73,7 +73,7 @@ exports.parse_html = function( html ) {
 
 		// Get last reply text.
 		// e.g. "by keesiemeijer"
-		item[ 'last_reply_author' ] = parts.join( 'ago' ).trim();
+		item[ 'last_reply_author' ] = parts.join( ' ago' ).trim();
 
 		// Get the time variable
 		item[ 'time' ] = Number( text_time.replace( /[^\d]+/gi, '' ) ) || '';

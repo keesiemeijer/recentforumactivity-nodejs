@@ -32,7 +32,7 @@ router.use( function( req, res, next ) {
 } );
 
 
-// Error handling.
+// Error handeling.
 router.use( function( err, req, res, next ) {
 	var status = err.status || err.statusCode;
 
@@ -43,8 +43,8 @@ router.use( function( err, req, res, next ) {
 
 	res.statusCode = status;
 
-	// render and end the response
-	res.render( '404.ejs', {
+	// render the 404 template for the error
+	res.status( res.statusCode ).render( '404.ejs', {
 		message: status + ' ' + err.message
 	} );
 } );

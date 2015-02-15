@@ -46,7 +46,7 @@ router.use( function( err, req, res, next ) {
 	// render and end the response
 	res.render( '404.ejs', {
 		message: status + ' ' + err.message
-	} ).end();
+	} );
 } );
 
 
@@ -76,7 +76,7 @@ router.get( "/profile/:profile([0-9a-zA-Z\-_+.]+)", function( req, res ) {
 	console.log( 'start' );
 
 	// sanitize profile
-	profile = options.profile.replace( /[^0-9a-zA-Z\-_+.]/gi, '' ).trim();
+	profile = options.profile.replace( /[^0-9a-zA-Z\-_+.]/gi, '' ).toLowerCase().trim();
 
 	// async requests
 	async.times( options.max_pages, function( i, callback ) {

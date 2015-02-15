@@ -1,6 +1,6 @@
-<% if (error) { %>
-	<div class="alert alert-danger" role="alert"><%= error %></div>
+<% if(errors.length) { %>
+	<% for ( var i = 0; i < errors.length; i++ ) { %>
+	<div class="alert alert-<%= errors[i]['error'] %>" role="alert"><%- errors[i]['message'] %> 
+	</div>
 <% } %>
-<% if (notice) { %>
-	<div class="alert alert-info" role="alert"><%= notice %></div>
 <% } %>

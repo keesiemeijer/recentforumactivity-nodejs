@@ -19,7 +19,7 @@ router.use( function( req, res, next ) {
 	res.locals = {
 		items: [],
 		profile: '',
-		error: '',
+		errors: [],
 		notice: '',
 		max_pages: config.max_pages,
 		show_form: config.show_form
@@ -32,7 +32,7 @@ router.use( function( req, res, next ) {
 } );
 
 
-// Error handeling.
+// Error handling.
 router.use( function( err, req, res, next ) {
 	var status = err.status || err.statusCode;
 
@@ -53,18 +53,21 @@ router.use( function( err, req, res, next ) {
 // Root
 router.get( '/', function( req, res ) {
 
-	if ( !options.error ) {
+	if ( !options.errors.length ) {
 		// Not redirected from a post request
-		// Not an error. Flush options and display notice.
+		// Not an error. Reset options and display notice.
 		options = res.locals;
-		options.notice = 'Please submit a WordPress dot org profile in the form above.';
+
+		options.errors.push( {
+			message: 'Please submit a WordPress dot org profile in the form above.',
+			error: 'info'
+		} );
 	}
 
 	res.render( 'index', options );
 
-	// flush errors
-	options.error = '';
-	options.notice = '';
+	// Reset errors
+	options.errors = [];
 } );
 
 
@@ -106,15 +109,24 @@ router.get( "/profile/:profile([0-9a-zA-Z\-_+.]+)", function( req, res ) {
 		// order items
 		options.items = parser.order_items( results );
 
-		// render items
+		if ( !options.items.length ) {
+
+			var link = '<a href="' + profile_base_url + profile + '">' + profile + '</a>';
+			options.errors.push( {
+				message: 'No topics found for profile ' + link,
+				error: 'warning'
+			} );
+		}
+
+		// Render items
 		res.render( 'index', options );
+
+		// Reset errors
+		options.errors = [];
 
 		console.log( 'finished' );
 	} );
 
-	// Reset errors.
-	options.error = '';
-	options.notice = '';
 } );
 
 
@@ -124,13 +136,17 @@ router.post( '/profile', function( req, res ) {
 	var profile = req.body.profile_name;
 	console.log( 'post' );
 
-	// sanitize profile before redirect
+	// Sanitize profile before redirect
 	profile = profile.replace( /[^0-9a-zA-Z\-_+.]/gi, '' ).trim();
 
 	if ( '' === profile ) {
 		// Reset options
 		options = res.locals;
-		options.error = 'Invalid profile! Submit a different profile.';
+		options.errors = [];
+		options.errors.push( {
+			message: 'Invalid profile! Submit a different profile.',
+			error: 'danger'
+		} );
 
 		res.redirect( '/' );
 	} else {
@@ -143,13 +159,12 @@ router.post( '/profile', function( req, res ) {
 
 // No page was found, display 404 template.
 router.use( function( req, res, next ) {
-	// Reset errors.
-	options.error = '';
-	options.notice = '';
-
 	res.status( 404 ).render( '404.ejs', {
 		message: 'Page not found!'
 	} );
+
+	// Reset errors.
+	options.errors = [];
 } );
 
 module.exports = router;

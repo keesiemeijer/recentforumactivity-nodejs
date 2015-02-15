@@ -8,6 +8,7 @@ var router = express.Router();
 
 // default options
 var options;
+var profile_base_url = 'https://wordpress.org/support/profile/';
 
 // static files
 router.use( express.static( __dirname + '/assets' ) );
@@ -87,7 +88,7 @@ router.get( "/profile/:profile([0-9a-zA-Z\-_+.]+)", function( req, res ) {
 		var page = ( i === 0 ) ? profile : profile + '/page/' + ( i + 1 );
 
 		var args = {
-			url: 'https://wordpress.org/support/profile/' + page
+			url: profile_base_url + page
 		};
 
 		request( args, function( error, response, html ) {

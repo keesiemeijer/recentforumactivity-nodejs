@@ -81,8 +81,10 @@ router.get( "/profile/:profile([0-9a-zA-Z\-_+.]+)", function( req, res ) {
 	// async requests
 	async.times( options.max_pages, function( i, callback ) {
 
+		var page = ( i === 0 ) ? profile : profile + '/page/' + ( i + 1 );
+
 		var args = {
-			url: 'https://wordpress.org/support/profile/' + profile + '/page/' + ( i + 1 ),
+			url: 'https://wordpress.org/support/profile/' + page
 		};
 
 		request( args, function( error, response, html ) {

@@ -8,7 +8,7 @@ var router = express.Router();
 
 // default options
 var options;
-var profile_base_url = 'https://wordpress.org/support/profile/';
+var profile_base_url = 'https://wordpress.org/support/users/';
 
 // static files
 router.use( express.static( __dirname + '/assets' ) );
@@ -85,7 +85,7 @@ router.get( "/profile/:profile([0-9a-zA-Z\-_+.]+)", function( req, res ) {
 	// async requests
 	async.times( options.max_pages, function( i, callback ) {
 
-		var page = ( i === 0 ) ? profile : profile + '/page/' + ( i + 1 );
+		var page = ( i === 0 ) ? profile + '/replied-to' : profile + '/replied-to/page/' + ( i + 1 );
 
 		var args = {
 			url: profile_base_url + page
@@ -99,7 +99,7 @@ router.get( "/profile/:profile([0-9a-zA-Z\-_+.]+)", function( req, res ) {
 				return callback( null, [] );
 			}
 
-			result = parser.parse_html( html );
+			result = parser.parse_html( html, profile );
 
 			callback( null, result );
 		} );

@@ -1,5 +1,5 @@
-var cheerio = require( 'cheerio' );
-var __ = require( 'underscore' );
+var cheerio = require('cheerio');
+var __ = require('underscore');
 
 var time_in_seconds = {
 	minute: 60,
@@ -12,108 +12,117 @@ var time_in_seconds = {
 
 var defaults = {
 	link: '',
-	resolved: '',
-	user_reply: '',
-	last_reply_author: '',
+	topic_title: '',
+	reply_author: '',
 	time: '',
-	type: '',
+	time_string: '',
 	order: ''
 };
 
 var exports = module.exports = {};
 
-exports.parse_html = function( html ) {
+exports.parse_html = function(html, profile) {
 
 	var result = [];
 
-	var $ = cheerio.load( html );
+	var $ = cheerio.load(html);
 
 	// Topics that contain "Most recent reply"
-	$( '#user-replies .freshness:contains("Most recent reply")' ).filter( function() {
+	$('.bbp-topic-freshness').filter(function(index) {
 		var item = {};
 
 		// get content from parent
-		var parent = $( this ).parents( 'li' );
+		var parent = $(this).closest('ul');
+		if (!parent.length) {
+			return false;
+		}
 
-		if ( !parent.length ) {
+		var topic = $(parent).find('.bbp-topic-title');
+		var reply_author_link = $(this).find('.bbp-author-name');
+		if (!topic.length || !reply_author_link.length) {
+			return false;
+		}
+
+		// remove query parameters and hash
+		var reply_author = reply_author_link.attr('href').split(/[?#]/)[0];
+		// strip trailing slash
+		reply_author = reply_author.replace(/\/$/g, '');
+		// get last part of href
+		reply_author = reply_author.substring(reply_author.lastIndexOf('/') + 1);
+
+		// Check if the profile is not the last reply author.
+		if (reply_author === profile) {
+			return;
+		}
+
+		var title = topic.find('.bbp-topic-permalink');
+		if (!title.length) {
 			return false;
 		}
 
 		// String with text nodes only.
-		var text = parent.contents().filter( function() {
+		var topic_title = $(title).contents().filter(function() {
 			return this.nodeType === 3; //Node.TEXT_NODE
-		} ).text().replace( /[\t\r\n]+/g, "" ).trim();
+		}).text().replace(/[\t\r\n]+/g, "").trim();
 
-		// Get status from text node string
-		item[ 'resolved' ] = __.find( [ '[resolved] [closed]', '[resolved]', '[closed]' ], function( status ) {
-			return text.indexOf( status ) === 0;
-		} );
+		item['reply_author'] = reply_author.trim();
+		item['topic_title'] = topic_title.trim();
+		item['link'] = $.html(title);
 
-		// Get user reply from text node string
-		// (e.g User last replied: 12 hours ago.)
-		if ( __.defaults( item, defaults )[ 'resolved' ].length ) {
-			item[ 'user_reply' ] = text.replace( item[ 'resolved' ], '' ).trim();
-		} else {
-			item[ 'user_reply' ] = text.trim();
-		}
+		// Get time string.
+		var text = $(this).find('a').first().text();
+		item['time_string'] = text;
 
-		// Get the topic link html.
-		var link = parent.find( 'a' ).first();
-		item[ 'link' ] = link.length ? $.html( parent.find( 'a' ).first() ) : '';
+		// Split time string at the first ' ago'.
+		var parts = text.split(' ago');
 
-		// Get content from freshness span.
-		text = $( this ).text();
+		// Split time string at comma's
+		parts = parts[0].split(', ');
 
-		// Split text at the first ' ago'.
-		var parts = text.split( ' ago' );
+		// Trim the time strings
+		parts = __.map(parts, function(val) {
+			return val.trim();
+		});
 
-		// Get text part with the time variable 
-		// e.g. "Most recent reply: 11 hours ago"
-		var text_time = parts.shift();
+		// Calculate time in seconds
+		var time = 0;
+		__.each(parts, function(val) {
+			var number = Number(val.replace(/[^\d]+/gi, ''));
+			var type = __.find(__.keys(time_in_seconds), function(date_type) {
+				return val.indexOf(date_type) !== -1;
+			});
 
-		// Get last reply text.
-		// e.g. "by keesiemeijer"
-		item[ 'last_reply_author' ] = parts.join( ' ago' ).trim();
+			time += time_in_seconds[type] * number;
+		});
 
-		// Get the time variable
-		item[ 'time' ] = Number( text_time.replace( /[^\d]+/gi, '' ) ) || '';
+		item['time'] = time;
 
-		// Get year, month, day etc...
-		item[ 'type' ] = __.find( __.keys( time_in_seconds ), function( date_type ) {
-			return text_time.indexOf( date_type ) !== -1;
-		} );
+		item = __.defaults(item, defaults);
 
-		item = __.defaults( item, defaults );
-
-		// Check if type and time was found
-		if ( !item[ 'type' ].length || !__.isNumber( item[ 'time' ] ) ) {
-			return false;
-		}
-
-		result.push( item );
-	} );
+		result.push(item);
+	});
 
 	return result;
 };
 
 
-exports.order_items = function( results ) {
+exports.order_items = function(results) {
 
-	if ( __.isEmpty( results ) ) {
+	if (__.isEmpty(results)) {
 		return [];
 	}
 
-	results = __.flatten( results );
+	results = __.flatten(results);
 
 	// Add order value.
-	__.each( results, function( item, index ) {
-		item[ 'order' ] = ( item[ 'time' ] * time_in_seconds[ item[ 'type' ] ] ) + index;
-	} );
+	__.each(results, function(item, index) {
+		item['order'] = item['time'] + index;
+	});
 
 	//Order results
-	results = __.sortBy( results, function( item ) {
+	results = __.sortBy(results, function(item) {
 		return item.order;
-	} );
+	});
 
 	return results;
 };

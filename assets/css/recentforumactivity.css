@@ -1,14 +1,14 @@
 /* @override http://test.dev/bootstrap/recentforumactivity.css */
 
 @font-face {
-	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?-h3ngmt');
-	src:url('../fonts/icomoon.eot?#iefix-h3ngmt') format('embedded-opentype'),
-		url('../fonts/icomoon.woff?-h3ngmt') format('woff'),
-		url('../fonts/icomoon.ttf?-h3ngmt') format('truetype'),
-		url('../fonts/icomoon.svg?-h3ngmt#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?3ohtu4');
+  src:  url('../fonts/icomoon.eot?3ohtu4#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?3ohtu4') format('truetype'),
+    url('../fonts/icomoon.woff?3ohtu4') format('woff'),
+    url('../fonts/icomoon.svg?3ohtu4#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 html{
@@ -44,7 +44,7 @@ footer p, p.tagline {
 	margin-bottom: 1.25em;
 }
 
-[data-download]:before {
+[data-download], .resolved {
  	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -54,15 +54,26 @@ footer p, p.tagline {
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	content: attr(data-download);
 	font-size: 1.2em;	
 	vertical-align: middle;
+}
+
+[data-download]:before {
+	content: "\e901";
+}
+
+.resolved:before{
+	color: #64b450;
+	content: "\e900";
+	padding-right: 3px;
 }
 
 .topic {
 	display: block;
 	margin-bottom: .3em;
 }
+
+
 
 /*
 * Hide only visually, but have it available for screen readers:

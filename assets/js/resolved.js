@@ -23,14 +23,14 @@ sc = {
 		sc.addEvent( hideLink, 'click', sc.toggle_resolved, false );
 
 		var button = document.querySelector('#submitbutton');
-		sc.addEvent( button, 'click', sc.hide_content, false );
+		sc.addEvent(button, 'click', sc.hide_content, false);
 	},
 
 	toggle_resolved: function( e ) {
 
 		var listitems = sc.topics.getElementsByTagName( 'li' );
 		for ( var i = 0; i < listitems.length; i++ ) {
-			if ( sc.cssjs( 'check', listitems[ i ], 'resolved' ) ) {
+			if ( listitems[ i ].getElementsByClassName('resolved').length ) {
 				if ( sc.cssjs( 'check', listitems[ i ], sc.hidingClass ) ) {
 					sc.cssjs( 'remove', listitems[ i ], sc.hidingClass );
 					this.innerHTML = 'hide resolved';

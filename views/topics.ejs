@@ -1,28 +1,22 @@
 <ul class="unstyled topics">
 	<% for ( var i = 0; i < items.length; i++ ) { %>
-	<li<% if (items[i]['resolved']) { %> class="resolved"<% } %>>	
+	<li>
 		<p>
 			<span class="topic">
-			<% if (items[i]['resolved']) { %>
-				<%= items[i]['resolved'] %>
-			<% } %>
 			<% if ( items[i]['link'] ) { %>
 				<%- items[i]['link'] %>
 			<% } %>
 			</span>
-			<% if ( items[i]['user_reply'] ) { %>
-				<%= items[i]['user_reply'] %>
-			<% } %>
-			<% if ( items[i]['time'] && items[i]['type'] ) { %>
+			<% if ( items[i]['time_string'] ) { %>
 			<span class="freshness">Most recent reply: 
 				<span class="badge"> 
-					<%= items[i]['time'] %> <%= items[i]['type'] %><% if ( items[i]['time'] !== 1 ) { %>s<% } %> ago
+					<%= items[i]['time_string'] %>
 				</span> 
-				<% if ( items[i]['last_reply_author'] ) { %>
-					<%= items[i]['last_reply_author'] %>
+				<% if ( items[i]['reply_author'] ) { %>
+					by <%= items[i]['reply_author'] %>
 				<% } %>
 			</span>
-			<% } %>			
+			<% } %>
 		</p>
 	</li>
 	<% } %>

@@ -38,7 +38,7 @@ exports.parse_html = function(html, profile) {
 		}
 
 		var topic = $(parent).find('.bbp-topic-title');
-		var reply_author_link = $(this).find('.bbp-author-name');
+		var reply_author_link = $(this).find('.bbp-author-link');
 		if (!topic.length || !reply_author_link.length) {
 			return false;
 		}
